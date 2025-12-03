@@ -109,6 +109,10 @@ h1, h2, h3, h4 {
   grid-column: span 2;
 }
 
+.side-card {
+  align-self: start;
+}
+
 .card-header {
   display: flex;
   align-items: center;
@@ -128,7 +132,7 @@ h1, h2, h3, h4 {
 
 .progress-row {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr)) 2fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) 2fr;
   align-items: center;
   gap: 12px;
 }
@@ -256,7 +260,7 @@ h1, h2, h3, h4 {
 
 .history-row {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   padding: 10px 14px;
   border-bottom: 1px solid var(--border);
   align-items: center;
@@ -344,6 +348,40 @@ input:focus {
   justify-content: flex-end;
   gap: 10px;
   margin-top: 16px;
+}
+
+.cardio-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.today-log {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.log-list {
+  flex: 1;
+  min-width: 240px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.log-list h4 {
+  margin: 0 0 8px;
+}
+
+.log-item {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.log-item:last-child {
+  border-bottom: none;
 }
 
 @media (max-width: 840px) {

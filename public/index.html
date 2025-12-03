@@ -25,7 +25,7 @@
     <main>
       <section id="week-view" class="tab-panel active">
         <div class="grid">
-          <article class="card wide">
+          <article class="card">
             <header class="card-header">
               <div>
                 <p class="eyebrow">Current week</p>
@@ -42,25 +42,57 @@
                 <p class="metric-label">Weekly goal</p>
                 <div class="metric" id="goal-count">0</div>
               </div>
+              <div>
+                <p class="metric-label">Miles this week</p>
+                <div class="metric" id="miles-this-week">0</div>
+              </div>
               <div class="progress">
                 <div class="progress-bar" id="progress-bar"></div>
               </div>
             </div>
             <div class="actions">
-              <button id="log-workout" class="primary-btn">Log a workout</button>
               <button id="reset-week" class="ghost-btn">Reset this week</button>
             </div>
           </article>
 
-          <article class="card">
+          <article class="card side-card">
+            <header class="card-header">
+              <div>
+                <p class="eyebrow">Cardio</p>
+                <h3>Walk/Run</h3>
+              </div>
+              <div class="pill">Today: <span id="miles-today">0</span> mi</div>
+            </header>
+            <div class="cardio-form">
+              <label>
+                Miles today
+                <input type="number" id="cardio-input" step="0.1" min="0" placeholder="e.g. 2.5">
+              </label>
+              <button id="log-cardio" class="primary-btn">Log miles</button>
+              <p class="muted">Adds to this week's total and today's entry.</p>
+            </div>
+          </article>
+
+          <article class="card wide">
             <header class="card-header">
               <div>
                 <p class="eyebrow">Body-weight moves</p>
-                <h3>Tap to toggle</h3>
+                <h3>Tap to log sets x reps</h3>
               </div>
-              <button id="clear-exercises" class="text-btn">Clear</button>
+              <button id="clear-exercises" class="text-btn">Clear today</button>
             </header>
             <div class="exercise-grid" id="exercise-grid"></div>
+          </article>
+
+          <article class="card wide">
+            <header class="card-header">
+              <div>
+                <p class="eyebrow">Today</p>
+                <h3>Logged activity</h3>
+              </div>
+              <p class="muted">Auto-adds to weekly totals</p>
+            </header>
+            <div id="today-log" class="today-log"></div>
           </article>
         </div>
       </section>
@@ -79,6 +111,7 @@
               <span>Week</span>
               <span>Completed / Goal</span>
               <span>Weight</span>
+              <span>Miles</span>
             </div>
             <div id="history-rows"></div>
           </div>
@@ -106,6 +139,26 @@
         <div class="modal-actions">
           <button type="button" class="ghost-btn" id="cancel-modal">Cancel</button>
           <button type="submit" class="primary-btn">Save week</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="log-modal">
+    <div class="modal">
+      <h3 id="log-modal-title">Log exercise</h3>
+      <form id="log-form">
+        <label>
+          Sets
+          <input type="number" id="log-sets" min="1" max="20" required>
+        </label>
+        <label>
+          Reps per set
+          <input type="number" id="log-reps" min="1" max="200" required>
+        </label>
+        <div class="modal-actions">
+          <button type="button" class="ghost-btn" id="cancel-log">Cancel</button>
+          <button type="submit" class="primary-btn">Add to today</button>
         </div>
       </form>
     </div>
