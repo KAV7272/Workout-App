@@ -5,6 +5,6 @@ WORKDIR /app
 COPY package.json server.js ./
 COPY public ./public
 
-EXPOSE 3000
+EXPOSE 3333
 
 CMD ["npm", "start"]

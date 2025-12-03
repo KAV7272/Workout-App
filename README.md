@@ -6,14 +6,14 @@ A minimal, single-page workout tracker that prompts every Sunday for the weekly 
 
 ```bash
 npm start
-# open http://localhost:3000
+# open http://localhost:3333
 ```
 
 ### Run with Docker
 
 ```bash
 docker build -t workout-app .
-docker run -p 3000:3000 workout-app
+docker run -p 3333:3333 workout-app
 ```
 
 ### Features
