@@ -1,0 +1,5 @@
+[
+  { "weekStart": "2023-11-12", "label": "Nov 12 – Nov 18", "weight": 182.4, "completionRate": 0.8 },
+  { "weekStart": "2023-11-19", "label": "Nov 19 – Nov 25", "weight": 181.2, "completionRate": 1.0 },
+  { "weekStart": "2023-11-26", "label": "Nov 26 – Dec 2", "weight": 180.6, "completionRate": 0.66 }
+]
