@@ -38,6 +38,11 @@ body {
   margin-bottom: 16px;
 }
 
+.header-actions {
+  display: flex;
+  gap: 8px;
+}
+
 .eyebrow {
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -382,6 +387,85 @@ input:focus {
 
 .log-item:last-child {
   border-bottom: none;
+}
+
+.community-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.user-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.user-card .name {
+  font-weight: 700;
+}
+
+.mini-progress {
+  margin-top: 6px;
+}
+
+.mini-progress .label {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.mini-progress .bar {
+  background: var(--card);
+  border: 1px solid var(--border);
+  height: 8px;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.mini-progress .fill {
+  background: linear-gradient(90deg, var(--accent), #7ae8ff);
+  height: 100%;
+  width: 0%;
+}
+
+.login-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 20;
+}
+
+.login-screen.show {
+  display: flex;
+}
+
+.login-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  width: min(420px, 100%);
+  box-shadow: var(--shadow);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.login-btn {
+  width: 100%;
+  margin-top: 6px;
 }
 
 @media (max-width: 840px) {

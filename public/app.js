@@ -1,4 +1,5 @@
 const STORAGE_KEY = 'workoutAppState';
+const USER_KEY = 'workoutAppUser';
 const DEFAULT_EXERCISES = [
   { id: 'pushups', name: 'Push-ups', icon: '💪' },
   { id: 'squats', name: 'Air Squats', icon: '🏋️' },
@@ -7,9 +8,16 @@ const DEFAULT_EXERCISES = [
   { id: 'burpees', name: 'Burpees', icon: '⚡' },
   { id: 'crunches', name: 'Crunches', icon: '📦' }
 ];
+const COMMUNITY = [
+  { name: 'Alex', workouts: 5, goal: 6, miles: 7.5 },
+  { name: 'Taylor', workouts: 3, goal: 4, miles: 4.3 },
+  { name: 'Sam', workouts: 6, goal: 6, miles: 10.1 },
+  { name: 'Jordan', workouts: 2, goal: 3, miles: 2.0 }
+];
 
 let state = loadState();
 let selectedExercise = null;
+let currentUser = loadUser();
 
 const elements = {
   weekRange: document.getElementById('week-range'),
@@ -31,7 +39,12 @@ const elements = {
   milesThisWeek: document.getElementById('miles-this-week'),
   milesToday: document.getElementById('miles-today'),
   todayLog: document.getElementById('today-log'),
-  cardioInput: document.getElementById('cardio-input')
+  cardioInput: document.getElementById('cardio-input'),
+  communityList: document.getElementById('community-list'),
+  loginScreen: document.getElementById('login-screen'),
+  loginForm: document.getElementById('login-form'),
+  loginName: document.getElementById('login-name'),
+  loginEmail: document.getElementById('login-email')
 };
 
 init();
@@ -41,6 +54,10 @@ function init() {
   bindEvents();
   renderExercises();
   updateUI();
+  if (!currentUser) {
+    showLogin();
+    return;
+  }
   if (rolled || !state.weeklyGoal || !state.currentWeight) {
     openModal();
   }
@@ -50,6 +67,12 @@ function init() {
 function bindEvents() {
   document.querySelectorAll('.tab').forEach(tab => {
     tab.addEventListener('click', () => switchTab(tab.dataset.tab, tab));
+  });
+
+  document.getElementById('sign-out').addEventListener('click', () => {
+    localStorage.removeItem(USER_KEY);
+    currentUser = null;
+    showLogin();
   });
 
   document.getElementById('reset-week').addEventListener('click', () => {
@@ -111,6 +134,17 @@ function bindEvents() {
     state.cardioByDate[today] = +(current + miles).toFixed(2);
     elements.cardioInput.value = '';
     persistState();
+    updateUI();
+  });
+
+  elements.loginForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const name = elements.loginName.value.trim();
+    const email = elements.loginEmail.value.trim();
+    if (!name) return;
+    currentUser = { name, email };
+    localStorage.setItem(USER_KEY, JSON.stringify(currentUser));
+    hideLogin();
     updateUI();
   });
 }
@@ -236,6 +270,7 @@ function updateUI() {
   renderTodayLog();
   renderHistory();
   renderExercises();
+  renderCommunity();
 }
 
 function renderTodayLog() {
@@ -319,6 +354,15 @@ function closeModal() {
   elements.modal.classList.remove('show');
 }
 
+function showLogin() {
+  elements.loginScreen.classList.add('show');
+  elements.loginName.focus();
+}
+
+function hideLogin() {
+  elements.loginScreen.classList.remove('show');
+}
+
 function openLogModal(name) {
   elements.logModalTitle.textContent = `Log ${name}`;
   elements.logSets.value = '';
@@ -388,4 +432,37 @@ function exposeTrendAPI() {
       return points.filter(p => p.weight || p.completionRate || p.miles);
     }
   };
+}
+
+function loadUser() {
+  const stored = localStorage.getItem(USER_KEY);
+  if (!stored) return null;
+  try {
+    return JSON.parse(stored);
+  } catch (e) {
+    return null;
+  }
+}
+
+function renderCommunity() {
+  if (!elements.communityList) return;
+  elements.communityList.innerHTML = '';
+  COMMUNITY.forEach(user => {
+    const item = document.createElement('div');
+    item.className = 'user-card';
+    const workoutPct = user.goal ? Math.min((user.workouts / user.goal) * 100, 120) : 0;
+    const milesPct = Math.min((user.miles / 10) * 100, 120);
+    item.innerHTML = `
+      <div class="name">${user.name}</div>
+      <div class="mini-progress">
+        <div class="label"><span>Workouts</span><span>${user.workouts}/${user.goal}</span></div>
+        <div class="bar"><div class="fill" style="width:${workoutPct}%"></div></div>
+      </div>
+      <div class="mini-progress">
+        <div class="label"><span>Miles</span><span>${user.miles} mi</span></div>
+        <div class="bar"><div class="fill" style="width:${milesPct}%"></div></div>
+      </div>
+    `;
+    elements.communityList.appendChild(item);
+  });
 }

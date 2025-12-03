@@ -14,7 +14,10 @@
         <h1>Weekly Weight + Workout Tracker</h1>
         <p class="lede">Set a weekly goal every Sunday, track bodyweight, and check off simple body-weight moves.</p>
       </div>
-      <button id="open-settings" class="ghost-btn">Update week settings</button>
+      <div class="header-actions">
+        <button id="open-settings" class="ghost-btn">Update week settings</button>
+        <button id="sign-out" class="ghost-btn">Sign out</button>
+      </div>
     </header>
 
     <nav class="tabs">
@@ -98,12 +101,23 @@
       </section>
 
       <section id="history-view" class="tab-panel">
-        <article class="card wide">
-          <header class="card-header">
-            <div>
-              <p class="eyebrow">History</p>
-              <h3>Week by week</h3>
-            </div>
+          <article class="card wide">
+            <header class="card-header">
+              <div>
+                <p class="eyebrow">Community</p>
+                <h3>Other users</h3>
+              </div>
+              <p class="muted">Progress snapshot</p>
+            </header>
+            <div id="community-list" class="community-list"></div>
+          </article>
+
+          <article class="card wide">
+            <header class="card-header">
+              <div>
+                <p class="eyebrow">History</p>
+                <h3>Week by week</h3>
+              </div>
             <p class="muted">Latest first</p>
           </header>
           <div class="history-table">
@@ -140,6 +154,24 @@
           <button type="button" class="ghost-btn" id="cancel-modal">Cancel</button>
           <button type="submit" class="primary-btn">Save week</button>
         </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="login-screen" id="login-screen">
+    <div class="login-card">
+      <h2>Welcome back</h2>
+      <p class="muted">Sign in to track your week and see your crew's progress.</p>
+      <form id="login-form" class="login-form">
+        <label>
+          Name
+          <input type="text" id="login-name" placeholder="Jane Doe" required>
+        </label>
+        <label>
+          Email (optional)
+          <input type="email" id="login-email" placeholder="you@example.com">
+        </label>
+        <button type="submit" class="primary-btn login-btn">Enter</button>
       </form>
     </div>
   </div>
